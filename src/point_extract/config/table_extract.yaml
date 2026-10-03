@@ -1,0 +1,24 @@
+table_extract_node:
+  ros__parameters:
+    # 相对包 share 目录，安装后为 share/point_extract/data/table.pcd
+    pcd_file: data/table.pcd
+    frame_id: camera_depth_optical_frame
+    topic: table_point
+    # 统计离群点滤波
+    sor_mean_k: 50
+    sor_stddev_mul_thresh: 1.0
+    # 桌面点欧式聚类，只保留最大簇。距离阈值单位为米
+    cluster_tolerance: 0.02
+    # RANSAC 平面拟合，距离阈值单位为米
+    ransac_distance_threshold: 0.005
+    ransac_max_iterations: 1000
+    ransac_probability: 0.99
+    min_plane_points: 1000
+    # 两张平面沿法向的距离差，小于该值认为还是同一张面
+    min_plane_separation: 0.05
+    # 相机在上方往下看时，桌子比地面更近
+    table_is_closer: true
+    # 结果以该频率重复发布，便于后订阅的可视化工具收到
+    publish_rate: 1.0
+    # 相对包 share 目录。空字符串表示不写文件
+    output_pcd: data/table_fit.pcd
