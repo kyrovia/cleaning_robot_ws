@@ -1,7 +1,7 @@
 table_extract_node:
   ros__parameters:
     # 相对包 share 目录，安装后为 share/point_extract/data/table.pcd
-    pcd_file: data/table.pcd
+    pcd_file: data/table_01.pcd
     frame_id: camera_depth_optical_frame
     topic: table_point
     # 统计离群点滤波

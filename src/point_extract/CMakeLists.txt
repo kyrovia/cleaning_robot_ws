@@ -10,21 +10,26 @@ find_package(ament_index_cpp REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(sensor_msgs REQUIRED)
 find_package(pcl_conversions REQUIRED)
-find_package(PCL REQUIRED COMPONENTS common io filters segmentation)
+find_package(PCL REQUIRED COMPONENTS common io filters search segmentation)
 
-add_executable(table_extract_node src/table_extract_node.cpp)
-target_compile_features(table_extract_node PUBLIC cxx_std_17)
-target_include_directories(table_extract_node PRIVATE ${PCL_INCLUDE_DIRS})
-target_compile_definitions(table_extract_node PRIVATE ${PCL_DEFINITIONS})
-ament_target_dependencies(table_extract_node
-  ament_index_cpp
-  rclcpp
-  sensor_msgs
-  pcl_conversions
-)
-target_link_libraries(table_extract_node ${PCL_LIBRARIES})
+function(point_extract_node target source)
+  add_executable(${target} ${source})
+  target_compile_features(${target} PUBLIC cxx_std_17)
+  target_include_directories(${target} PRIVATE ${PCL_INCLUDE_DIRS})
+  target_compile_definitions(${target} PRIVATE ${PCL_DEFINITIONS})
+  ament_target_dependencies(${target}
+    ament_index_cpp
+    rclcpp
+    sensor_msgs
+    pcl_conversions
+  )
+  target_link_libraries(${target} ${PCL_LIBRARIES})
+endfunction()
 
-install(TARGETS table_extract_node
+point_extract_node(table_extract_node src/table_extract_node.cpp)
+point_extract_node(cluster_extract_node src/cluster_extract_node.cpp)
+
+install(TARGETS table_extract_node cluster_extract_node
   DESTINATION lib/${PROJECT_NAME}
 )
 install(DIRECTORY config launch data

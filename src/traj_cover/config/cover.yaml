@@ -1,0 +1,34 @@
+cover_plan_node:
+  ros__parameters:
+    # 输入必须由包名和包内相对路径组成。
+    pcd_package: point_extract
+    pcd_file: data/table_cluster.pcd
+    uv_frame_id: table_uv
+
+    ransac_distance_threshold: 0.005
+    ransac_max_iterations: 1000
+    min_plane_points: 1000
+    boundary_simplify_tolerance: 0.002
+
+    # 单位均为米。轨迹间距和边界内缩不在代码中写死。
+    # v：竖向扫描（沿短边往复）；u：横向扫描（沿长边往复）。
+    sweep_axis: v
+    row_spacing: 0.06
+    wall_inset: 0.02
+    resample_step: 0.005
+    # 仅平滑相邻清扫行之间的尖角；0 表示关闭。
+    connector_smoothing_distance: 0.02
+
+    v_max: 0.05
+    a_max: 0.10
+    a_lat_max: 0.10
+
+    output_package: traj_cover
+    # 相对源码包目录，实际写到 src/traj_cover/outputs。
+    output_csv: outputs/cover_path.csv
+    # 相对源码包目录，实际写到 src/traj_cover/viz。
+    viz_dir: viz
+
+    path_topic: cover_path
+    marker_topic: cover_marker
+    publish_rate: 1.0

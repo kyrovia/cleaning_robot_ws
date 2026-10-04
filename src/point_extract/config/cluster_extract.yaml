@@ -1,0 +1,13 @@
+cluster_extract_node:
+  ros__parameters:
+    # 相对包 share 目录。与 table_extract 分开，避免覆盖桌面拟合结果
+    pcd_file: data/table_01.pcd
+    frame_id: camera_depth_optical_frame
+    topic: table_cluster
+    # 欧式聚类，相邻距离小于该值的点算同一簇。单位为米
+    cluster_tolerance: 0.02
+    min_cluster_size: 1
+    # 结果以该频率重复发布，便于后订阅的可视化工具收到
+    publish_rate: 1.0
+    # 相对包 share 目录。空字符串表示不写文件
+    output_pcd: data/table_cluster.pcd
